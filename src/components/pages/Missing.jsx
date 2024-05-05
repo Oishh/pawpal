@@ -7,6 +7,8 @@ import { Toast } from "primereact/toast";
 import { Image } from "primereact/image";
 import { FileUpload } from "primereact/fileupload";
 import { confirmDialog, ConfirmDialog } from "primereact/confirmdialog";
+import { InputIcon } from "primereact/inputicon";
+import { IconField } from "primereact/iconfield";
 import PocketBase from "pocketbase";
 
 const pb = new PocketBase("https://pawpal-backend.pockethost.io");
@@ -266,20 +268,17 @@ export default function Missing() {
               <label htmlFor="name" className="text-900 font-medium mb-2">
                 Name
               </label>
-              <span className="p-input-icon-left">
-                <i className="pi pi-user" />
+              <IconField iconPosition="left">
+                <InputIcon className="pi pi-user"> </InputIcon>
                 <InputText name="name" onChange={(e) => handleChange(e)} />
-              </span>
+              </IconField>
               <label htmlFor="desc" className="text-900 font-medium my-2">
                 Description
               </label>
-              <span className="p-input-icon-left">
-                <i className="pi pi-info-circle" />
-                <InputText
-                  name="description"
-                  onChange={(e) => handleChange(e)}
-                />
-              </span>
+              <IconField iconPosition="left">
+                <InputIcon className="pi pi-info-circle"> </InputIcon>
+                <InputText name="description" onChange={(e) => handleChange(e)} />
+              </IconField>
               <label
                 htmlFor="description"
                 className="text-900 font-medium my-2"

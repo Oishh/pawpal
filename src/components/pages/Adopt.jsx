@@ -8,6 +8,8 @@ import { confirmDialog, ConfirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { InputText } from "primereact/inputtext";
+import { InputIcon } from "primereact/inputicon";
+import { IconField } from "primereact/iconfield";
 import PocketBase from "pocketbase";
 
 const pb = new PocketBase("https://pawpal-backend.pockethost.io");
@@ -16,6 +18,7 @@ export default function Adopt() {
   const [nonAdoptedPets, setNonAdoptedPets] = useState([]);
   const [basketPets, setBasketPets] = useState([]);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [hasNoPet, setHasNoPet] = useState(false);
   const [loading, setLoading] = useState(true);
   const [personInfo, setPersonInfo] = useState({
     name: "",
@@ -27,6 +30,14 @@ export default function Adopt() {
   const [info, setInfo] = useState(false);
 
   const toast = useRef(null);
+
+  useEffect(() => {
+    if (basketPets.length <= 0) {
+      setHasNoPet(true);
+    } else {
+      setHasNoPet(false);
+    }
+  }, [basketPets])
 
   const postData = async () => {
     try {
@@ -256,6 +267,7 @@ export default function Adopt() {
     <div>
       <Button
         label="Adopt Now"
+        disabled={hasNoPet}
         icon="pi pi-check"
         onClick={() => {
           setShowBasket(false);
@@ -451,17 +463,17 @@ export default function Adopt() {
               <label htmlFor="name" className="text-900 font-medium mb-2">
                 Name
               </label>
-              <span className="p-input-icon-left">
-                <i className="pi pi-user" />
+              <IconField iconPosition="left">
+                <InputIcon className="pi pi-user"> </InputIcon>
                 <InputText name="name" onChange={(e) => handleChange(e)} />
-              </span>
+              </IconField>
               <label htmlFor="contact" className="text-900 font-medium my-2">
                 Contact Number
               </label>
-              <span className="p-input-icon-left">
-                <i className="pi pi-phone" />
+              <IconField iconPosition="left">
+                <InputIcon className="pi pi-phone"> </InputIcon>
                 <InputText name="contact" onChange={(e) => handleChange(e)} />
-              </span>
+              </IconField>
             </div>
           </div>
         </div>
